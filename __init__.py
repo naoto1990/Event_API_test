@@ -4,6 +4,7 @@ import urllib
 
 from flask import Flask, request, Response, jsonify
 
+OAuth_access_token = os.environ['OAuth_access_token']
 
 def create_app(test_config=None):
     """
@@ -38,7 +39,7 @@ def create_app(test_config=None):
         url = "https://slack.com/api/chat.postMessage"
         headers = {
             "Content-Type": "application/json; charset=UTF-8",
-            "Authorization": "Bearer xoxp-416025484737-416583975282-448947058899-2d2d9ce1f9e93886e9a5c99c7abc5618"
+            "Authorization": "Bearer {0}".format(OAuth_access_token)
         }
 
         method = 'POST'
