@@ -22,13 +22,16 @@ def create_app(test_config=None):
 
             return verification_req['challenge']
 
-        post_response()
+        event_info = request.json
+        print(event_info)
+
+        post_response(event_info['event']['item']['channel'])
 
         # TODO: returnがないとFlaskのTypeErrorが発生するが、returnする値がない場合どうすべきか確認
         return 'ok'
 
 
-    def post_response():
+    def post_response(target_channel: str):
         """
         Reacjiのイベントが発火した際に、#generalチャネルにメッセージをポストする
         """
@@ -41,7 +44,7 @@ def create_app(test_config=None):
         method = 'POST'
 
         data = {
-            "channel": '#general',
+            "channel": target_channel,
             "text": 'Thanks!',
             "username": 'Bot-Sample'
         }
